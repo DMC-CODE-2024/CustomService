@@ -66,6 +66,3 @@ public class AppDbConfig {
     }
 
 }
-
-//  physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-//        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy

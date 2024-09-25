@@ -176,6 +176,7 @@ public class CustomImeiCheckController {
             } else {
                 userValue = (UserVars) userFactory.createUser().getUserDetailDao(decodedString.split(":")[0], decodedString.split(":")[1]);
             }
+
             if (userValue == null || !userValue.getUsername().equals(decodedString.split(":")[0]) || !userValue.getPassword().equals(decodedString.split(":")[1])) {
                 logger.info("username password not match");
                 throw new UnAuthorizationException("en", customImeiCheckImeiServiceImpl.globalErrorMsgs("en"));
