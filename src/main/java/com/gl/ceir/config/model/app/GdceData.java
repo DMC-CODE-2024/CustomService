@@ -32,25 +32,10 @@ public class GdceData {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date_of_actual_import;
 
-    @Transient
-    private String goods_description;
-
-    @Transient
-    private String customs_duty_tax;
-
     @JsonIgnore
     private int isCustomTaxPaid;
 
-    @Transient   // not in db
-    private String device_type;
-    @Transient
-    private String brand;
-    @Transient
-    private String model;
-    @Transient
-    private int sim;
-
-    private int is_used;
+    private Integer is_used;  //intgit
 
     private String importer_id;
 
@@ -62,6 +47,16 @@ public class GdceData {
     private String request_id;
     @JsonIgnore
     private String source;
+
+    @Transient
+    private String customs_duty_tax;
+
+    private String device_type;
+    private String brand;
+    private String model;
+    private int sim;
+    private String goods_description;
+
 
     @Override
     public String toString() {
