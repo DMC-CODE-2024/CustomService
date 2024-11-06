@@ -26,15 +26,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-/*
- * Write a code :
- * get all values at the starting of api. like language sys_param checkImeiResponseParam etc.
- * create a function to check in database , if value of that tag is true:
- *  Call all values from db again. and once values are obtained. change sysParam_tag ->false
- * If  change sysParam_tag ->false. not to get values
- *
- * */
-
 @Service
 public class CustomImeiCheckImeiServiceImpl {
 

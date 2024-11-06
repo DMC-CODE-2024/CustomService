@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -84,10 +85,21 @@ public class GlobalControllerExceptionHandler {
         return new ExceptionResponse(HttpStatus.NOT_ACCEPTABLE.value(), "not acceptable", "en", new Result(checkImeiServiceImpl.globalErrorMsgs("en")));
     }
 
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse handleIllegalStateException(Exception e, WebRequest request) {
+        logger.error("Error msg :" + e.getLocalizedMessage() + " # request " + request.toString());
+        logger.error("Error :" + e);
+        logger.error("Error ..... :" + e.getCause());
+        return new ExceptionResponse(HttpStatus.BAD_REQUEST.value(), "bad request", "en ", new Result(checkImeiServiceImpl.globalErrorMsgs("en")));
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionResponse handleBadRequestException(Exception e, WebRequest request) {
         logger.error("Error msg :" + e.getLocalizedMessage() + " # request " + request.toString());
+        logger.error("Error Full :" + e);
+        logger.error("Error cause :" + e.getCause());
         try {
             logger.error("Error ############ : " + req.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
         } catch (Exception exp) {
@@ -106,7 +118,7 @@ public class GlobalControllerExceptionHandler {
             logger.error("Error msgs :" + exp.toString());
 
         }
-        return new ExceptionResponse(HttpStatus.NOT_FOUND.value(), "bad request", " request is not valid ", new Result(checkImeiServiceImpl.globalErrorMsgs("en")));
+        return new ExceptionResponse(HttpStatus.BAD_REQUEST.value(), "bad request", "en", new Result(checkImeiServiceImpl.globalErrorMsgs("en")));
     }
 
     @ExceptionHandler(InternalServerError.class)

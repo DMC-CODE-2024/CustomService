@@ -3,7 +3,8 @@ package com.gl.ceir.config.service.impl;
 import com.gl.ceir.config.exceptions.InternalServicesException;
 import com.gl.ceir.config.model.app.GdceData;
 import com.gl.ceir.config.model.app.GdceRegisterImeiReq;
-import com.gl.ceir.config.repository.app.*;
+import com.gl.ceir.config.repository.app.GdceDataRepository;
+import com.gl.ceir.config.repository.app.GdceRegisterImeiReqRepo;
 import com.gl.custom.CustomCheck;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -100,6 +101,8 @@ public class CustomImeiRegisterServiceImpl {
                         || StringUtils.isBlank(gdData.getDevice_type()) ||
                         StringUtils.isBlank(gdData.getBrand()) ||
                         StringUtils.isBlank(gdData.getModel()) ||
+                        gdData.getDate_of_actual_import() == null ||
+                        gdData.getDate_of_registration() == null ||
                         gdData.getSim() == 0) {
                     logger.info("Mandatory param missing for " + gdData);
                     responseArray.add(new ResponseArray(gdData.getImei(), gdData.getSerial_number(), 202, failMessage));
